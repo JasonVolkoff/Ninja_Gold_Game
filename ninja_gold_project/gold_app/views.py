@@ -1,24 +1,23 @@
 from django.shortcuts import render, redirect
+import random
 
 
 def index(request):
     if "gold" not in request.session:
         request.session["gold"] = 0
-
-    return render(request, "index.html")
+    return render(request, "index.html")  # add context
 
 
 def process_money(request):
-    # check if info is posted
     if request.method == "POST":
-        # convert to simple variables to ease of use
-        totalGold = request.session["gold"]
-        location = request.session["location"]
-        # check where we're at
+        location = request.POST["location"]
         if location == "farm":
-            # Earns 10-20g
-            goldThisTurn = round(random.random() * 10 + 10)
-            # add total with session gold
-            totalGold += goldThisTurn
-            request.session["gold"] = totalGold
+            request.session["gold"] += random.randint(10, 20)
+        elif location == "cave":
+            request.session["gold"] += random.randint(5, 10)
+        elif location == "house":
+            request.session["gold"] += random.randint(2, 5)
+        else:
+            request.session["gold"] += random.randint(-50, 50)
+        print(request.session["gold"])
     return redirect("/")
