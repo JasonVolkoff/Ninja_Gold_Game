@@ -14,43 +14,70 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
             <p>Your Gold:</p>
-            <span>{{ request.session.gold }}</span>
+            <span id="goldBox">{{ request.session.gold }}</span>
         </div>
         <div class="row">
             <div class="col-sm-3">
-                <form action="/process_money" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="location" value="farm">
-                    <button>Find Gold!</button>
-                </form>
+                <div class="col-sm-12 d-flex align-items-center flex-column">
+                    <h3>Farm</h3>
+                    <p>(earns 10-20 gold)</p>
+                    <form action="/process_money" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="location" value="farm">
+                        <button>Find Gold!</button>
+                    </form>
+                </div>
             </div>
             <div class="col-sm-3">
-                <form action="/process_money" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="location" value="farm">
-                    <button>Find Gold!</button>
-                </form>
+                <div class="col-sm-12 d-flex align-items-center flex-column">
+                    <h3>Cave</h3>
+                    <p>(earns 5-10 gold)</p>
+                    <form action="/process_money" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="location" value="cave">
+                        <button>Find Gold!</button>
+                    </form>
+                </div>
             </div>
             <div class="col-sm-3">
-                <form action="/process_money" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="location" value="farm">
-                    <button>Find Gold!</button>
-                </form>
+                <div class="col-sm-12 d-flex align-items-center flex-column">
+                    <h3>House</h3>
+                    <p>(earns 2-5 gold)</p>
+                    <form action="/process_money" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="location" value="house">
+                        <button>Find Gold!</button>
+                    </form>
+                </div>
             </div>
             <div class="col-sm-3">
-                <form action="/process_money" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="location" value="casino">
-                    <button>Find Gold!</button>
-                </form>
+                <div class="col-sm-12 d-flex align-items-center flex-column">
+                    <h3>Casino</h3>
+                    <p>(earns/takes 0-50 gold)</p>
+                    <form action="/process_money" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="location" value="casino">
+                        <button>Find Gold!</button>
+                    </form>
+                </div>
+
             </div>
         </div>
+        <p class="mb-1">Activities:</p>
         <div class="row">
-            <p>{{ request.session.activities }}</p>
+            <div class="overflow-auto" id="activityBox">
+                {% for activity in activities %}
+                {% if "lost" in activity %}
+                <p class="red d-flex align-items-center flex-column">{{ activity }}</p>
+                {% else %}
+                <p class="green d-flex align-items-center flex-column">{{ activity }}</p>
+                {% endif %}
+                {% endfor %}
+            </div>
+
         </div>
     </div>
 </body>
