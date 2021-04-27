@@ -45,5 +45,12 @@ def process_money(request):
             str = f"Earned {goldChange} gold from the {location}! ({myTime})"
         activities.insert(0, str)
         request.session["activities"] = activities
-
     return redirect("/")
+
+
+def reset(request):
+    print("hello")
+    if request.method == "POST":
+        print("hello")
+        request.session.flush()
+        return redirect("/")
