@@ -84,7 +84,12 @@
             </div>
 
         </div>
-        <button type="button" class="btn btn-primary btn-lg btn-block">Reset</button>
+        <form action="/process_money/reset" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="reset" value="reset">
+            <button class="btn btn-primary btn-lg btn-block">Reset</button>
+        </form>
+
 
     </div>
 </body>
